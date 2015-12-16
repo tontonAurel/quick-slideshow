@@ -5,7 +5,7 @@ if (isset($_POST['login'])) {
   header('Location: index.php');
   exit;
 }
-$images = glob("./images/*.jpg");
+$images = glob("./images/*.JPG");
 ?>
 <!doctype html>
 <html lang="fr">
@@ -28,10 +28,23 @@ $images = glob("./images/*.jpg");
   float: left;
   margin: 0 5px 5px 0;
   width: 150px;
+  position: relative;
+  height: 100px;
 }
 .my-gallery figcaption {
   display: none;
 }
+.my-gallery figure a {
+  background-size: cover;
+  background-position: top center;
+  height: 100px;
+  display: block;
+  position: relative;
+}
+.my-gallery figure a img {
+  display: none;
+}
+
 </style>
 </head>
 <body>
@@ -44,7 +57,7 @@ $images = glob("./images/*.jpg");
 <?php else : ?>
   <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
     <?php
-      if (file_exists('../cache/cache.html')) :
+      if (file_exists('../cache/cache.html') && !isset($_GET['no-cache'])) :
         $cache = file_get_contents('../cache/cache.html');
         echo "<!-- from cache -->";
         echo $cache;
@@ -54,8 +67,8 @@ $images = glob("./images/*.jpg");
         foreach ($images as $image) :
         $i = getimagesize($image);
         echo '<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-          <a href="'.$image.'" itemprop="contentUrl" data-size="' . $i[0]. 'x'. $i[1] .'">
-              <img src="'.$image.'" itemprop="thumbnail" alt="Image description" />
+          <a href="'.$image.'" itemprop="contentUrl" data-size="' . $i[0]. 'x'. $i[1] .'" style="background-image:url('.$image.')">
+          <img src="'.$image.'" itemprop="thumbnail" alt="Image description" />
           </a>
         </figure>';
         endforeach;
