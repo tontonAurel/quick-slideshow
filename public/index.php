@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_POST['login'])) {
-  $_SESSION['logged'] = $_POST['login'] == 'login' && $_POST['password'] == 'password';
+  $_SESSION['logged'] = $_POST['login'] == 'mariage' && $_POST['password'] == '30mariage082014';
   header('Location: index.php');
   exit;
 }
